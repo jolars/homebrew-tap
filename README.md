@@ -1,4 +1,4 @@
-# homebrew-tap
+# Homebrew Tap for jolars
 
 A [Homebrew](https://brew.sh) tap for [jolars](https://github.com/jolars)
 command-line tools:
@@ -27,11 +27,6 @@ brew install fatou
 
 Each formula installs a prebuilt binary along with its man pages and shell
 completions (bash, fish, zsh).
-
-> [!NOTE]
-> This tap replaces the former per-tool taps `jolars/fatou`, `jolars/arity`,
-> and `jolars/badness`. Existing installs migrate here automatically on
-> `brew update`; no action is needed.
 
 ## How it stays current
 
