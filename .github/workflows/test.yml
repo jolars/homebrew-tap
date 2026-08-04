@@ -1,0 +1,50 @@
+name: Test formula
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.formula }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Exercise each formula on linux x86_64/arm64 and macOS arm64. The
+        # x86_64-apple-darwin branch is not run directly: GitHub's Intel macOS
+        # runners are being retired and queue indefinitely. That branch is
+        # structurally identical to the arm64 mac branch (same render, same
+        # tarball layout), so the arm64 job covers it by symmetry.
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+        formula: [fatou, arity, badness]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c # 2026.07.10.1
+
+      # brew audit/test refuse a path argument; register the working tree as a
+      # tap so we can reference the formula by name.
+      - name: Register working tree as tap
+        run: |
+          tap="$(brew --repository)/Library/Taps/jolars/homebrew-tap"
+          mkdir -p "$(dirname "$tap")"
+          ln -s "$GITHUB_WORKSPACE" "$tap"
+
+      - name: brew style
+        run: brew style jolars/tap/${{ matrix.formula }}
+
+      - name: brew audit
+        run: brew audit jolars/tap/${{ matrix.formula }}
+
+      - name: brew install (downloads + verifies sha256)
+        run: brew install jolars/tap/${{ matrix.formula }}
+
+      - name: brew test
+        run: brew test jolars/tap/${{ matrix.formula }}

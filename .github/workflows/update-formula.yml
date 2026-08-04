@@ -1,0 +1,72 @@
+name: Update formulae
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily; new releases appear within ~a day
+  workflow_dispatch: # run on demand right after a release
+
+permissions:
+  contents: write # commit the updated formulae to this repo via GITHUB_TOKEN
+
+concurrency:
+  group: update-formula
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      FORMULAE: "fatou arity badness"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c # 2026.07.10.1
+
+      # brew audit/test refuse a path argument; register the working tree as a
+      # tap so the rendered (uncommitted) formulae can be referenced by name.
+      - name: Register working tree as tap
+        run: |
+          tap="$(brew --repository)/Library/Taps/jolars/homebrew-tap"
+          mkdir -p "$(dirname "$tap")"
+          ln -s "$GITHUB_WORKSPACE" "$tap"
+
+      # Render each formula, and for any that changed, validate it before
+      # publishing. Bot commits made with GITHUB_TOKEN do not trigger test.yml,
+      # so a broken upstream release fails loudly here instead of shipping a bad
+      # formula. Commits accumulate locally and are pushed together at the end.
+      - name: Render, validate, and commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          changed=0
+          for name in $FORMULAE; do
+            scripts/render-formula.sh "$name"
+            if git diff --quiet -- "Formula/$name.rb"; then
+              echo "$name already up to date."
+              continue
+            fi
+            brew style "jolars/tap/$name"
+            brew audit "jolars/tap/$name"
+            brew install "jolars/tap/$name"
+            brew test "jolars/tap/$name"
+            # Version is not a stanza (Homebrew scans it from the URL); read it
+            # back from the release path for the commit message.
+            version="$(grep -oE 'releases/download/v[^/]+' "Formula/$name.rb" | head -1 | sed 's#releases/download/v##')"
+            git commit -m "$name $version" -- "Formula/$name.rb"
+            changed=1
+          done
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+        id: update
+
+      - name: Push
+        if: steps.update.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # setup-homebrew disturbs checkout's persisted credentials, so push
+          # with an explicitly authenticated remote URL.
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
