@@ -38,6 +38,10 @@ brew style   jolars/tap/fatou
 brew audit   jolars/tap/fatou
 brew install jolars/tap/fatou           # downloads + verifies sha256
 brew test    jolars/tap/fatou           # asserts `--version` matches
+
+# On NixOS, run the same validation in Homebrew's official Docker image:
+scripts/test-formula-in-brew.sh fatou
+devenv tasks run tap:test --input formula=fatou
 ```
 
 ## CI

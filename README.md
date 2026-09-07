@@ -56,3 +56,25 @@ To regenerate a formula locally:
 ```sh
 scripts/render-formula.sh fatou   # requires an authenticated gh CLI
 ```
+
+## Development on NixOS
+
+Run Homebrew's Linux checks in its official Docker image without installing
+Homebrew on the host:
+
+```sh
+scripts/test-formula-in-brew.sh tomat      # test selected formulae
+scripts/test-formula-in-brew.sh            # test every formula
+```
+
+The container is disposable, while `~/.cache/homebrew-tap` retains downloads
+between runs. Set `HOMEBREW_DOCKER_IMAGE` to test another Homebrew image or
+`HOMEBREW_DOCKER_CACHE_DIR` to move the cache.
+
+The devenv exposes the same workflow as tasks:
+
+```sh
+devenv tasks run tap:check
+devenv tasks run tap:test --input formula=tomat
+devenv tasks run tap:test                   # test every formula
+```

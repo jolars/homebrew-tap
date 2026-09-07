@@ -24,13 +24,13 @@ class Tomat < Formula
       sha256 "3d055adc3aef70c676fab1009b7231fb1edc32b14a99e7be31901cb22e73b86f"
     end
 
-    depends_on "alsa-lib"
     depends_on "patchelf" => :build
+    depends_on "alsa-lib"
   end
 
   def install
-    on_linux do
-      system "patchelf", "--set-rpath", Formula["alsa-lib"].opt_lib.to_s, "tomat"
+    if OS.linux?
+      system "patchelf", "--set-rpath", formula_opt_lib("alsa-lib"), "tomat"
     end
 
     bin.install "tomat"
@@ -45,12 +45,12 @@ class Tomat < Formula
     environment_variables PATH: std_service_path_env
     error_log_path var/"log/tomat.log"
 
-    on_macos do
+    if OS.mac?
       keep_alive successful_exit: false
       throttle_interval 5
     end
 
-    on_linux do
+    if OS.linux?
       keep_alive true
       restart_delay 5
     end
