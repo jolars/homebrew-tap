@@ -16,7 +16,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      FORMULAE: "fatou arity badness"
+      FORMULAE: "fatou arity badness tomat"
     steps:
       - uses: actions/checkout@v7
 

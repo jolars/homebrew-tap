@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Render Formula/<name>.rb from its template and the latest stable release.
 #
-# Usage: render-formula.sh <name>   (e.g. fatou, arity, badness)
+# Usage: render-formula.sh <name>   (e.g. fatou, arity, badness, tomat)
 #
 # Reads the newest non-prerelease, non-draft release of jolars/<name> (the
 # /releases/latest endpoint excludes those), pulls the per-asset .sha256 files

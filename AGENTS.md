@@ -4,9 +4,10 @@ This file provides guidance to agents when working with code in this repository.
 
 ## What this is
 
-A Homebrew tap (`jolars/tap`) distributing prebuilt binaries for three
-Rust CLI tools by the same author: `fatou` (Julia), `arity` (R), and
-`badness` (LaTeX). Each is a language server, formatter, and linter.
+A Homebrew tap (`jolars/tap`) distributing prebuilt binaries for four Rust CLI
+tools by the same author: `fatou` (Julia), `arity` (R), `badness` (LaTeX), and
+`tomat` (Pomodoro). The first three are language servers, formatters, and
+linters; `tomat` is a timer with daemon support.
 
 ## Formula are generated, not hand-edited
 
@@ -47,7 +48,7 @@ brew test    jolars/tap/fatou           # asserts `--version` matches
   trigger `test.yml`, so validation lives here to avoid shipping a broken
   upstream release.
 - `.github/workflows/test.yml` — on PR/push, runs style/audit/install/test
-  for all three formulae across ubuntu x86_64/arm64 and macOS arm64. The
+  for all four formulae across ubuntu x86_64/arm64 and macOS arm64. The
   `x86_64-apple-darwin` branch is intentionally not exercised (Intel macOS
   runners are being retired); it is covered by symmetry with the arm64 mac
   branch.
@@ -58,4 +59,8 @@ brew test    jolars/tap/fatou           # asserts `--version` matches
   authored by hand in the `.tmpl`; only URLs and sha256s are substituted.
 - `badness.rb.tmpl` guards completion installs with `File.exist?` so the
   formula installs against older releases that shipped only the binary.
-  `fatou` and `arity` install completions unconditionally.
+  `fatou`, `arity`, and `tomat` install completions unconditionally.
+- `tomat.rb.tmpl` uses the audio-enabled GNU archives on Linux. It declares
+  `alsa-lib` and patches the prebuilt binary's runtime search path to the
+  Homebrew library. Its formula-defined service supersedes the fixed-path
+  systemd unit included in the Linux archive.

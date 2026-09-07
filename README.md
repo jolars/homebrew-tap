@@ -3,12 +3,14 @@
 A [Homebrew](https://brew.sh) tap for [jolars](https://github.com/jolars)
 command-line tools:
 
-- [fatou](https://github.com/jolars/fatou) — language server, formatter, and
+- [fatou](https://github.com/jolars/fatou)—language server, formatter, and
   linter for Julia
-- [arity](https://github.com/jolars/arity) — language server, formatter, and
+- [arity](https://github.com/jolars/arity)—language server, formatter, and
   linter for R
-- [badness](https://github.com/jolars/badness) — language server, formatter,
+- [badness](https://github.com/jolars/badness)—language server, formatter,
   and linter for LaTeX
+- [tomat](https://github.com/jolars/tomat)—Pomodoro timer with daemon support
+  for Linux and macOS
 
 ## Install
 
@@ -16,6 +18,7 @@ command-line tools:
 brew install jolars/tap/fatou
 brew install jolars/tap/arity
 brew install jolars/tap/badness
+brew install jolars/tap/tomat
 ```
 
 Or tap first, then install by bare name:
@@ -24,6 +27,16 @@ Or tap first, then install by bare name:
 brew tap jolars/tap
 brew install fatou
 ```
+
+Tomat's background daemon can be managed through Homebrew:
+
+```sh
+brew services start tomat
+brew services stop tomat
+```
+
+Use these commands instead of `tomat daemon install` for a Homebrew-managed
+installation.
 
 Each formula installs a prebuilt binary along with its man pages and shell
 completions (bash, fish, zsh).

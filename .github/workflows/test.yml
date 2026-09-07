@@ -23,7 +23,7 @@ jobs:
         # structurally identical to the arm64 mac branch (same render, same
         # tarball layout), so the arm64 job covers it by symmetry.
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
-        formula: [fatou, arity, badness]
+        formula: [fatou, arity, badness, tomat]
     steps:
       - uses: actions/checkout@v7
 
