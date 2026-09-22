@@ -5,23 +5,23 @@ class Fatou < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/jolars/fatou/releases/download/v0.20.0/fatou-aarch64-apple-darwin.tar.gz"
-      sha256 "0b7a51720fc395263556083e47df69a2785a093d0ece02a62ccedc993351b0fd"
+      url "https://github.com/jolars/fatou/releases/download/v0.21.0/fatou-aarch64-apple-darwin.tar.gz"
+      sha256 "dd96da4f0b435398d7db09684d031636af1c77696b41834a06880b71ca9e9f87"
     end
     on_intel do
-      url "https://github.com/jolars/fatou/releases/download/v0.20.0/fatou-x86_64-apple-darwin.tar.gz"
-      sha256 "0b37e719919a94423ff1c600372177ac5c20888dc093794b1b3a59cd761379dd"
+      url "https://github.com/jolars/fatou/releases/download/v0.21.0/fatou-x86_64-apple-darwin.tar.gz"
+      sha256 "aea02fa2392c7223626e62d523f0d5e3fe16b494eccc44dbcc1f8265d570bc7e"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/jolars/fatou/releases/download/v0.20.0/fatou-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "b22005617eb6dea05e713ace5c65712c5ca24677ba3e52d0a76c47010fbce3cb"
+      url "https://github.com/jolars/fatou/releases/download/v0.21.0/fatou-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "4ff993596071551f2f9f1a08e4479554c1eb387ca3641b13faf6f20dd01df1ca"
     end
     on_intel do
-      url "https://github.com/jolars/fatou/releases/download/v0.20.0/fatou-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "bb0394ed75bf78838ada9587f08f6f7ff39700811d0439ef6d285bfefae7ebde"
+      url "https://github.com/jolars/fatou/releases/download/v0.21.0/fatou-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "517eb7768c44a775cecea2a6826d17444d0255cd25e8816d33cd373dc2df69bb"
     end
   end
 
