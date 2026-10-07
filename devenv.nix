@@ -7,10 +7,11 @@
   ];
 
   tasks."tap:check" = {
-    description = "Run host-side checks for the Homebrew test helper";
+    description = "Run host-side checks for the formula scripts";
     exec = ''
       shellcheck scripts/*.sh tests/*.sh
       tests/test-formula-in-brew.sh
+      tests/test-render-formula.sh
     '';
     before = [ "devenv:enterTest" ];
     showOutput = true;

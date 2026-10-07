@@ -50,6 +50,10 @@ checks daily, validates any changed formula (`brew style`, `audit`, `install`,
 tab. No credentials are stored: the workflow reads the public release assets and
 commits with the built-in `GITHUB_TOKEN`.
 
+If a release is missing any required archive or checksum, the renderer warns and
+keeps the existing formula. Other tools can still update, and the next run checks
+the incomplete release again.
+
 To regenerate a formula locally:
 
 ```sh

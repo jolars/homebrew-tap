@@ -19,7 +19,8 @@ regeneration will overwrite manual `.rb` changes.
   `jolars/<name>`, downloads the four per-target `.tar.gz.sha256` assets,
   and substitutes `__VERSION__`, `__SHA_MACOS_ARM__`, `__SHA_MACOS_X86__`,
   `__SHA_LINUX_ARM__`, `__SHA_LINUX_X86__`. It fails loudly if any
-  placeholder survives (e.g. a missing release asset).
+  placeholder survives. If any required archive or checksum is missing, it warns
+  and leaves the formula unchanged so other tools can still update.
 - Requires an authenticated `gh` CLI (`GH_TOKEN` in CI suffices for public reads).
 - The four targets are fixed: `{aarch64,x86_64}-apple-darwin` and
   `{aarch64,x86_64}-unknown-linux-gnu`.

@@ -24,9 +24,38 @@ targets=(
   "x86_64-unknown-linux-gnu:SHA_LINUX_X86"
 )
 
-tag="$(gh api "repos/$repo/releases/latest" --jq .tag_name)"
+release="$(gh api "repos/$repo/releases/latest" --jq '[.tag_name, (.assets[].name)] | .[]')"
+metadata=()
+while IFS= read -r line; do
+  metadata+=("$line")
+done <<<"$release"
+tag="${metadata[0]}"
 version="${tag#v}"
 echo "Latest $name release: $tag (version $version)"
+
+# Releases become visible before every platform build finishes uploading.
+# Preserve the current formula until all archives and checksums are available.
+missing=()
+for entry in "${targets[@]}"; do
+  target="${entry%%:*}"
+  for suffix in tar.gz tar.gz.sha256; do
+    asset="${name}-${target}.${suffix}"
+    found=0
+    for uploaded in "${metadata[@]:1}"; do
+      if [[ "$uploaded" == "$asset" ]]; then
+        found=1
+        break
+      fi
+    done
+    if ((found == 0)); then
+      missing+=("$asset")
+    fi
+  done
+done
+if ((${#missing[@]} > 0)); then
+  echo "warning: deferring $name $tag; missing release assets: ${missing[*]}" >&2
+  exit 0
+fi
 
 workdir="$(mktemp -d)"
 trap 'rm -rf "$workdir"' EXIT
@@ -42,8 +71,8 @@ for entry in "${targets[@]}"; do
   gh release download "$tag" -R "$repo" -p "$asset" -D "$workdir" --clobber
   # Files are `sha256sum` format: `<hash>  <filename>`.
   sha="$(awk '{print $1; exit}' "$workdir/$asset")"
-  if [ -z "$sha" ]; then
-    echo "error: no sha256 parsed for $target" >&2
+  if [[ ! "$sha" =~ ^[[:xdigit:]]{64}$ ]]; then
+    echo "error: invalid sha256 for $target" >&2
     exit 1
   fi
   echo "  $target -> $sha"
