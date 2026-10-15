@@ -1,0 +1,54 @@
+class Deixis < Formula
+  desc "MCP server for interacting with language servers"
+  homepage "https://github.com/jolars/deixis"
+  license any_of: ["MIT", "Apache-2.0"]
+
+  on_macos do
+    on_arm do
+      url "https://github.com/jolars/deixis/releases/download/v__VERSION__/deixis-aarch64-apple-darwin.tar.xz"
+      sha256 "__SHA_MACOS_ARM__"
+    end
+    on_intel do
+      url "https://github.com/jolars/deixis/releases/download/v__VERSION__/deixis-x86_64-apple-darwin.tar.xz"
+      sha256 "__SHA_MACOS_X86__"
+    end
+  end
+
+  on_linux do
+    on_arm do
+      url "https://github.com/jolars/deixis/releases/download/v__VERSION__/deixis-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "__SHA_LINUX_ARM__"
+    end
+    on_intel do
+      url "https://github.com/jolars/deixis/releases/download/v__VERSION__/deixis-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "__SHA_LINUX_X86__"
+    end
+  end
+
+  def install
+    bin.install "deixis"
+  end
+
+  test do
+    request = {
+      jsonrpc: "2.0",
+      id:      1,
+      method:  "initialize",
+      params:  {
+        protocolVersion: "2025-11-25",
+        capabilities:    {},
+        clientInfo:      { name: "homebrew", version: "1.0.0" },
+      },
+    }
+
+    Open3.popen3(bin/"deixis", "--root", testpath.to_s) do |stdin, stdout, _stderr, wait_thread|
+      stdin.puts request.to_json
+      response = JSON.parse(stdout.readline)
+      assert_equal "deixis", response.dig("result", "serverInfo", "name")
+      assert_equal version.to_s, response.dig("result", "serverInfo", "version")
+      stdin.puts({ jsonrpc: "2.0", method: "notifications/initialized" }.to_json)
+      stdin.close
+      assert_predicate wait_thread.value, :success?
+    end
+  end
+end

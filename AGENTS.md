@@ -4,10 +4,11 @@ This file provides guidance to agents when working with code in this repository.
 
 ## What this is
 
-A Homebrew tap (`jolars/tap`) distributing prebuilt binaries for four Rust CLI
+A Homebrew tap (`jolars/tap`) distributing prebuilt binaries for Rust CLI
 tools by the same author: `fatou` (Julia), `arity` (R), `badness` (LaTeX), and
 `tomat` (Pomodoro). The first three are language servers, formatters, and
-linters; `tomat` is a timer with daemon support.
+linters; `tomat` is a timer with daemon support. `deixis` is an MCP server for
+interacting with language servers.
 
 ## Formula are generated, not hand-edited
 
@@ -38,7 +39,7 @@ mkdir -p "$(dirname "$tap")" && ln -s "$PWD" "$tap"
 brew style   jolars/tap/fatou
 brew audit   jolars/tap/fatou
 brew install jolars/tap/fatou           # downloads + verifies sha256
-brew test    jolars/tap/fatou           # asserts `--version` matches
+brew test    jolars/tap/fatou           # checks the installed binary
 
 # On NixOS, run the same validation in Homebrew's official Docker image:
 scripts/test-formula-in-brew.sh fatou
@@ -57,7 +58,7 @@ workflow discovers templates and can create the initial generated formula.
   trigger `test.yml`, so validation lives here to avoid shipping a broken
   upstream release.
 - `.github/workflows/test.yml` — on PR/push, runs style/audit/install/test
-  for all four formulae across ubuntu x86_64/arm64 and macOS arm64. The
+  for all generated formulae across ubuntu x86_64/arm64 and macOS arm64. The
   `x86_64-apple-darwin` branch is intentionally not exercised (Intel macOS
   runners are being retired); it is covered by symmetry with the arm64 mac
   branch.
@@ -73,3 +74,6 @@ workflow discovers templates and can create the initial generated formula.
   `alsa-lib` and patches the prebuilt binary's runtime search path to the
   Homebrew library. Its formula-defined service supersedes the fixed-path
   systemd unit included in the Linux archive.
+- `deixis.rb.tmpl` uses cargo-dist `.tar.xz` archives and installs only its
+  binary. Its test checks the version returned by an MCP initialization
+  handshake because the CLI has no `--version` option.

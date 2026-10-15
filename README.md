@@ -11,6 +11,8 @@ command-line tools:
   linter for LaTeX
 - [tomat](https://github.com/jolars/tomat): Pomodoro timer with daemon support
   for Linux and macOS
+- [deixis](https://github.com/jolars/deixis): MCP server for interacting with
+  language servers
 
 ## Install
 
@@ -20,6 +22,7 @@ brew install jolars/tap/arity
 brew install jolars/tap/badness
 brew install jolars/tap/tomat
 brew install jolars/tap/diplodocus
+brew install jolars/tap/deixis
 ```
 
 Or tap first, then install by bare name:
