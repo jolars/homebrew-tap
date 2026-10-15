@@ -16,7 +16,7 @@ Every `Formula/<name>.rb` is rendered from `Formula/<name>.rb.tmpl` by
 regeneration will overwrite manual `.rb` changes.
 
 - `render-formula.sh <name>` reads the newest non-prerelease release of
-  `jolars/<name>`, downloads the four per-target `.tar.gz.sha256` assets,
+  `jolars/<name>`, downloads the four per-target `.sha256` assets for the archive format in the template,
   and substitutes `__VERSION__`, `__SHA_MACOS_ARM__`, `__SHA_MACOS_X86__`,
   `__SHA_LINUX_ARM__`, `__SHA_LINUX_X86__`. It fails loudly if any
   placeholder survives. If any required archive or checksum is missing, it warns
@@ -44,6 +44,10 @@ brew test    jolars/tap/fatou           # asserts `--version` matches
 scripts/test-formula-in-brew.sh fatou
 devenv tasks run tap:test --input formula=fatou
 ```
+
+`diplodocus` uses cargo-dist `.tar.xz` archives and installs only its binary.
+Its template is pending the first stable release with binary assets. The update
+workflow discovers templates and can create the initial generated formula.
 
 ## CI
 

@@ -11,7 +11,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  formulae:
+    runs-on: ubuntu-latest
+    outputs:
+      names: ${{ steps.list.outputs.names }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: list
+        run: |
+          names=$(printf '%s\n' Formula/*.rb | sed 's#Formula/##; s/\.rb$//' | jq -Rc . | jq -sc .)
+          echo "names=$names" >> "$GITHUB_OUTPUT"
+
   test:
+    needs: formulae
     name: ${{ matrix.formula }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -23,7 +35,7 @@ jobs:
         # structurally identical to the arm64 mac branch (same render, same
         # tarball layout), so the arm64 job covers it by symmetry.
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
-        formula: [fatou, arity, badness, tomat]
+        formula: ${{ fromJson(needs.formulae.outputs.names) }}
     steps:
       - uses: actions/checkout@v7
 

@@ -19,6 +19,7 @@ brew install jolars/tap/fatou
 brew install jolars/tap/arity
 brew install jolars/tap/badness
 brew install jolars/tap/tomat
+brew install jolars/tap/diplodocus
 ```
 
 Or tap first, then install by bare name:
@@ -38,8 +39,8 @@ brew services stop tomat
 Use these commands instead of `tomat daemon install` for a Homebrew-managed
 installation.
 
-Each formula installs a prebuilt binary along with its man pages and shell
-completions (bash, fish, zsh).
+Each formula installs a prebuilt binary, plus man pages and shell completions
+when the upstream project provides them.
 
 ## How it stays current
 
@@ -51,8 +52,8 @@ tab. No credentials are stored: the workflow reads the public release assets and
 commits with the built-in `GITHUB_TOKEN`.
 
 If a release is missing any required archive or checksum, the renderer warns and
-keeps the existing formula. Other tools can still update, and the next run checks
-the incomplete release again.
+keeps the existing formula. Other tools can still update, and the next run
+checks the incomplete release again.
 
 To regenerate a formula locally:
 

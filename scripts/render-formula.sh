@@ -16,6 +16,13 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 tmpl="$root/Formula/$name.rb.tmpl"
 out="$root/Formula/$name.rb"
 
+# Read the archive format from the template so cargo-dist archives work too.
+archive="$(grep -oE '\.tar\.(gz|xz)' "$tmpl" | sort -u)"
+if [[ "$archive" != .tar.gz && "$archive" != .tar.xz ]]; then
+  echo "error: template must use a single supported archive format" >&2
+  exit 1
+fi
+
 # aarch64-apple-darwin -> SHA_MACOS_ARM, etc.
 targets=(
   "aarch64-apple-darwin:SHA_MACOS_ARM"
@@ -38,8 +45,8 @@ echo "Latest $name release: $tag (version $version)"
 missing=()
 for entry in "${targets[@]}"; do
   target="${entry%%:*}"
-  for suffix in tar.gz tar.gz.sha256; do
-    asset="${name}-${target}.${suffix}"
+  for suffix in "$archive" "$archive.sha256"; do
+    asset="${name}-${target}${suffix}"
     found=0
     for uploaded in "${metadata[@]:1}"; do
       if [[ "$uploaded" == "$asset" ]]; then
@@ -66,7 +73,7 @@ rendered="${rendered//__VERSION__/$version}"
 for entry in "${targets[@]}"; do
   target="${entry%%:*}"
   placeholder="${entry##*:}"
-  asset="${name}-${target}.tar.gz.sha256"
+  asset="${name}-${target}${archive}.sha256"
 
   gh release download "$tag" -R "$repo" -p "$asset" -D "$workdir" --clobber
   # Files are `sha256sum` format: `<hash>  <filename>`.

@@ -7,6 +7,7 @@ trap 'rm -rf "$test_dir"' EXIT
 mkdir -p "$test_dir/bin" "$test_dir/scripts" "$test_dir/Formula"
 cp "$root/scripts/render-formula.sh" "$test_dir/scripts/"
 cp "$root/Formula/badness.rb.tmpl" "$test_dir/Formula/"
+cp "$root/Formula/diplodocus.rb.tmpl" "$test_dir/Formula/"
 
 fail() {
   echo "test failure: $*" >&2
@@ -89,5 +90,25 @@ if "$helper" badness >"$test_dir/stdout" 2>"$test_dir/stderr"; then
   fail 'unknown placeholder succeeded'
 fi
 [[ "$(cat "$formula")" == 'existing formula' ]] || fail 'unknown placeholder changed formula'
+
+# A new cargo-dist formula must render from xz checksums without a prior formula.
+export GH_RELEASE_METADATA="$test_dir/diplodocus-release"
+{
+  echo v0.3.0
+  for target in aarch64-apple-darwin x86_64-apple-darwin aarch64-unknown-linux-gnu x86_64-unknown-linux-gnu; do
+    printf 'diplodocus-%s.tar.xz\n' "$target"
+    printf 'diplodocus-%s.tar.xz.sha256\n' "$target"
+  done
+} >"$GH_RELEASE_METADATA"
+: >"$GH_DOWNLOADS"
+"$helper" diplodocus
+formula="$test_dir/Formula/diplodocus.rb"
+grep -Fq '/v0.3.0/diplodocus-' "$formula" || fail 'cargo-dist version was not rendered'
+grep -Fq '.tar.xz"' "$formula" || fail 'cargo-dist archive format was lost'
+grep -Fq "$GH_CHECKSUM" "$formula" || fail 'cargo-dist checksum was not rendered'
+[[ "$(wc -l <"$GH_DOWNLOADS")" -eq 4 ]] || fail 'cargo-dist did not download four checksums'
+if grep -q '__[A-Z_]*__' "$formula"; then
+  fail 'cargo-dist placeholders remain'
+fi
 
 echo "render-formula tests passed"
