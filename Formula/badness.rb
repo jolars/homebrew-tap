@@ -5,23 +5,23 @@ class Badness < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/jolars/badness/releases/download/v0.27.0/badness-aarch64-apple-darwin.tar.gz"
-      sha256 "7e72a89859bcc6c3651b355f5c650f8b9fa599cde0b9cc82ac5c09e4c2ec90eb"
+      url "https://github.com/jolars/badness/releases/download/v0.28.0/badness-aarch64-apple-darwin.tar.gz"
+      sha256 "1f796e6a9a3919aaa563dd9600a3a52bc018f13702f54e91ef63a78b6a1d0194"
     end
     on_intel do
-      url "https://github.com/jolars/badness/releases/download/v0.27.0/badness-x86_64-apple-darwin.tar.gz"
-      sha256 "004d0f667ca53e5f379465f2d077efd1350922b6235f3afd7480af2c266f219d"
+      url "https://github.com/jolars/badness/releases/download/v0.28.0/badness-x86_64-apple-darwin.tar.gz"
+      sha256 "f11813f0ceda732fb9d31e581508a69f749085e246bc8fb5907ae90c26c73877"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/jolars/badness/releases/download/v0.27.0/badness-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "845d4c92f4f3b08b77658e4171d5bfa6216c1947487578c469604f7dca5a186e"
+      url "https://github.com/jolars/badness/releases/download/v0.28.0/badness-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "08f4eac04f50f7df4b41ef512e24f2be7b05533276e5fac792e4b62b839a9749"
     end
     on_intel do
-      url "https://github.com/jolars/badness/releases/download/v0.27.0/badness-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "0f3beda316406761abe00779152edd048859935ae3999f1ceb09be1fc39ceed6"
+      url "https://github.com/jolars/badness/releases/download/v0.28.0/badness-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "c08f375793dab0f7351eb7860235f98aab3f0665c9fc17b3058c9990ad4ce287"
     end
   end
 
