@@ -56,6 +56,7 @@ set -euo pipefail
 tap="$(brew --repository)/Library/Taps/jolars/homebrew-tap"
 mkdir -p "$(dirname "$tap")"
 ln -s "$PWD" "$tap"
+brew trust --tap jolars/tap
 
 for formula in "$@"; do
   echo "==> Testing jolars/tap/$formula"

@@ -1,0 +1,37 @@
+class Metewand < Formula
+  desc "Reproducible computational benchmarks across languages"
+  homepage "https://metewand.org"
+  license any_of: ["MIT", "Apache-2.0"]
+
+  on_macos do
+    on_arm do
+      url "https://github.com/jolars/metewand/releases/download/v__VERSION__/metewand-aarch64-apple-darwin.tar.xz"
+      sha256 "__SHA_MACOS_ARM__"
+    end
+    on_intel do
+      url "https://github.com/jolars/metewand/releases/download/v__VERSION__/metewand-x86_64-apple-darwin.tar.xz"
+      sha256 "__SHA_MACOS_X86__"
+    end
+  end
+
+  on_linux do
+    on_arm do
+      url "https://github.com/jolars/metewand/releases/download/v__VERSION__/metewand-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "__SHA_LINUX_ARM__"
+    end
+    on_intel do
+      url "https://github.com/jolars/metewand/releases/download/v__VERSION__/metewand-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "__SHA_LINUX_X86__"
+    end
+  end
+
+  def install
+    bin.install "metewand"
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/metewand --version")
+    system bin/"metewand", "init", "benchmark"
+    system bin/"metewand", "check", "--manifest", "benchmark/metewand.yaml"
+  end
+end

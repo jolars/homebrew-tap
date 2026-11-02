@@ -15,6 +15,8 @@ command-line tools:
   monorepos
 - [deixis](https://github.com/jolars/deixis): MCP server for interacting with
   language servers
+- [metewand](https://github.com/jolars/metewand): reproducible computational
+  benchmarks across languages
 
 ## Install
 
@@ -25,6 +27,7 @@ brew install jolars/tap/badness
 brew install jolars/tap/tomat
 brew install jolars/tap/diplodocus
 brew install jolars/tap/deixis
+brew install jolars/tap/metewand
 ```
 
 Or tap first, then install by bare name:

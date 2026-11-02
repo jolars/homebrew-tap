@@ -8,7 +8,8 @@ A Homebrew tap (`jolars/tap`) distributing prebuilt binaries for Rust CLI
 tools by the same author: `fatou` (Julia), `arity` (R), `badness` (LaTeX), and
 `tomat` (Pomodoro). The first three are language servers, formatters, and
 linters; `tomat` is a timer with daemon support. `deixis` is an MCP server for
-interacting with language servers.
+interacting with language servers. `metewand` runs reproducible computational
+benchmarks across languages.
 
 ## Formula are generated, not hand-edited
 
@@ -35,6 +36,7 @@ scripts/render-formula.sh fatou          # regenerate one formula locally
 # tree must be registered as a tap first (CI does this automatically):
 tap="$(brew --repository)/Library/Taps/jolars/homebrew-tap"
 mkdir -p "$(dirname "$tap")" && ln -s "$PWD" "$tap"
+brew trust --tap jolars/tap
 
 brew style   jolars/tap/fatou
 brew audit   jolars/tap/fatou
@@ -77,3 +79,6 @@ workflow discovers templates and can create the initial generated formula.
 - `deixis.rb.tmpl` uses cargo-dist `.tar.xz` archives and installs only its
   binary. Its test checks the version returned by an MCP initialization
   handshake because the CLI has no `--version` option.
+- `metewand.rb.tmpl` uses cargo-dist `.tar.xz` archives and installs only its
+  binary. Its test creates and validates a starter benchmark without launching
+  workers.

@@ -48,6 +48,7 @@ jobs:
           tap="$(brew --repository)/Library/Taps/jolars/homebrew-tap"
           mkdir -p "$(dirname "$tap")"
           ln -s "$GITHUB_WORKSPACE" "$tap"
+          brew trust --tap jolars/tap
 
       - name: brew style
         run: brew style jolars/tap/${{ matrix.formula }}
