@@ -5,23 +5,23 @@ class Diplodocus < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/jolars/diplodocus/releases/download/v0.11.0/diplodocus-aarch64-apple-darwin.tar.xz"
-      sha256 "39e10b9e4a06c913f16362522bc7e94a3a5f31c23215669a0c6bdfb5c32ec3c2"
+      url "https://github.com/jolars/diplodocus/releases/download/v0.12.0/diplodocus-aarch64-apple-darwin.tar.xz"
+      sha256 "cd4393e165d783be039014bffbae71f386f9ef874c732f547c7736f80f727b19"
     end
     on_intel do
-      url "https://github.com/jolars/diplodocus/releases/download/v0.11.0/diplodocus-x86_64-apple-darwin.tar.xz"
-      sha256 "441f648431e5c6676edd34d552f54c29d1cceee8de8236d17a6659ad58cabfb5"
+      url "https://github.com/jolars/diplodocus/releases/download/v0.12.0/diplodocus-x86_64-apple-darwin.tar.xz"
+      sha256 "cd74f4c5e0c526942d2155d155be8bb9facfb2de8cff037691ae6591b947fdf1"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/jolars/diplodocus/releases/download/v0.11.0/diplodocus-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "db0243ec9a0fcb42f26d52901efa2d890529644784394f8bcfb3db429db9ac7b"
+      url "https://github.com/jolars/diplodocus/releases/download/v0.12.0/diplodocus-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "7f2bfdeddd3ab08bb1de14e208b9f684bf680e08ccd9bc3783cf08ef61fbcee5"
     end
     on_intel do
-      url "https://github.com/jolars/diplodocus/releases/download/v0.11.0/diplodocus-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "ba96104bf577893fdc0a787e79f2abd7771bd01c30c5bac0dc5223f8b181f31f"
+      url "https://github.com/jolars/diplodocus/releases/download/v0.12.0/diplodocus-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "c0fa931bc957aa00424fa8193cfa8c1eea189dd1949a3ef977f46fe64ab448fe"
     end
   end
 
