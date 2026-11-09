@@ -5,23 +5,23 @@ class Tomat < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/jolars/tomat/releases/download/v2.15.0/tomat-aarch64-apple-darwin.tar.gz"
-      sha256 "2ae72bc7896342d58a78ff59e2a94d43c45e3de17aeb861ea9fe9154f8ee1c24"
+      url "https://github.com/jolars/tomat/releases/download/v2.16.0/tomat-aarch64-apple-darwin.tar.gz"
+      sha256 "90edc621fa215d5c986c483c58da4d5b99e0204cccb42671406a90d1242d588c"
     end
     on_intel do
-      url "https://github.com/jolars/tomat/releases/download/v2.15.0/tomat-x86_64-apple-darwin.tar.gz"
-      sha256 "69c9a5fe448ece030e22202240486296d8ab1275bd5a25aafcc537befa6c6688"
+      url "https://github.com/jolars/tomat/releases/download/v2.16.0/tomat-x86_64-apple-darwin.tar.gz"
+      sha256 "1b010d0738c3a081605804e96e8bce6e226168248b9cf8d3513d7e2fe68d8758"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/jolars/tomat/releases/download/v2.15.0/tomat-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "aaa83307bb0d3253ac88b07a64d119a06806a4c340f32f384c439f84e8832605"
+      url "https://github.com/jolars/tomat/releases/download/v2.16.0/tomat-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "78d5038087676e648dcb0d386bde9e6ec53e762c901d6605ce7b536c6a50df9c"
     end
     on_intel do
-      url "https://github.com/jolars/tomat/releases/download/v2.15.0/tomat-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "1bc906a6fae6611eb4c50a9ab9146f5c3e4c87b85f3f2ab8fa3d3c6dddd44be1"
+      url "https://github.com/jolars/tomat/releases/download/v2.16.0/tomat-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "fb007d9c3e0e567279407fd1ad2434022e938298b16f25a9f7938003740d2152"
     end
 
     depends_on "patchelf" => :build
