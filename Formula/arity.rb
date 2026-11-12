@@ -5,23 +5,23 @@ class Arity < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/jolars/arity/releases/download/v0.29.0/arity-aarch64-apple-darwin.tar.gz"
-      sha256 "5ccb2b6d8c356c0747e5fe1b93d0e217bbd03e9186b28cd8e46166f1cd6d907a"
+      url "https://github.com/jolars/arity/releases/download/v0.30.0/arity-aarch64-apple-darwin.tar.gz"
+      sha256 "303fcd951633b0db36aa27ba18a0ddb8d1053e9dbc36d71874e2c198126755cb"
     end
     on_intel do
-      url "https://github.com/jolars/arity/releases/download/v0.29.0/arity-x86_64-apple-darwin.tar.gz"
-      sha256 "8505ec4525f450d9d778715450deeb5e6a2a53d1d88658af6cd401fa6636b2e0"
+      url "https://github.com/jolars/arity/releases/download/v0.30.0/arity-x86_64-apple-darwin.tar.gz"
+      sha256 "0cd53227a97095f2fbf29668e61a62a5bb4273946c66996d770c20a44bef7d85"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/jolars/arity/releases/download/v0.29.0/arity-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "5f0a7cfe8cbc49ce53c0398451441a492cc0430b2e0c5e3bab93523ad9cce2ee"
+      url "https://github.com/jolars/arity/releases/download/v0.30.0/arity-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "fc7acf37c02166ea16627bb1ae8337e51d1219c7a6b130de10a935b9e3aacc24"
     end
     on_intel do
-      url "https://github.com/jolars/arity/releases/download/v0.29.0/arity-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "c6bc1a5bd89bf1a5e8f227109de552519eaad8634c33563cc82c3b3a7361bd44"
+      url "https://github.com/jolars/arity/releases/download/v0.30.0/arity-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "187f299a718a2f3ed5ef7a9fa3b84b4686cdeef2ccea2b6b946e911673062b70"
     end
   end
 
