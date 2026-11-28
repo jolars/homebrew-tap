@@ -5,23 +5,23 @@ class Metewand < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/jolars/metewand/releases/download/v0.10.0/metewand-aarch64-apple-darwin.tar.xz"
-      sha256 "08e716f7fbfa74788b4fc71bce47cb8ff0b91b9734c870d274f10917999ad440"
+      url "https://github.com/jolars/metewand/releases/download/v0.11.0/metewand-aarch64-apple-darwin.tar.xz"
+      sha256 "8062151c2c8f18470bc3bbedac02bad082853b14f16f06acdb475fe6912bff93"
     end
     on_intel do
-      url "https://github.com/jolars/metewand/releases/download/v0.10.0/metewand-x86_64-apple-darwin.tar.xz"
-      sha256 "a2a55f35ee58358de18a7ec2ff75f41ba422b1aec7bfff0384fc04a4310d5bbf"
+      url "https://github.com/jolars/metewand/releases/download/v0.11.0/metewand-x86_64-apple-darwin.tar.xz"
+      sha256 "51635311cfee19a9c20cd4c54e22ef65b95eebae26fa795124d6669d9e62e10c"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/jolars/metewand/releases/download/v0.10.0/metewand-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "f5e9dd82acea093ec4825b0f2bf264c30d5126ce4673a9c15e649f313f51f05c"
+      url "https://github.com/jolars/metewand/releases/download/v0.11.0/metewand-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "6fe5ca6ed1ad9184a5f7a9d93ecef559fc8a4b15ca4ee2e9ba2fc13c31528135"
     end
     on_intel do
-      url "https://github.com/jolars/metewand/releases/download/v0.10.0/metewand-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "ee07c2950c5be5e70cb657ff69996f5c4ad6692b5532cf6f2bcd7fcec0f1e464"
+      url "https://github.com/jolars/metewand/releases/download/v0.11.0/metewand-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "019bfed467114d1c2eb45cded3c74dfecc4df8c703d2671878c9d63b513cbeae"
     end
   end
 
